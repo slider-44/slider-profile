@@ -1,0 +1,65 @@
+server:
+  port: 7061
+
+spring:
+  application:
+    name: 'infra-gateway'
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    poolName: SpringBootHikariCP
+    maximum-pool-size: 5
+    minimum-idle: 3
+    max-lifetime: 2000000
+    connection-timeout: 30000
+    idle-timeout: 30000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 250
+  redis:
+    host: ${redis.host}
+  thymeleaf:
+    cache: false
+    
+security:
+  sessions: if-required
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eureka.client.serviceUrl.defaultZone}
+    use-dns-for-fetching-service-urls: false
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 5
+    
+
+ribbon:
+  MaxAutoRetries: 1
+  OkToRetryOnAllOperations: true
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+  ServerListRefreshInterval: 5000  
+
+zuul:
+  ignoredPatterns: /resources/thirdparty/**,/favicon.ico,/logout,/signin,/invalidSession,/user,/hystrix.stream,/turbine.stream
+  ignoredServices: 'ui-main'
+  routes:
+    ui-main:
+      path: /**
+  retryable: true
+
+hystrix:
+  command:
+    default:
+      execution.isolation:
+        thread:
+          timeoutInMilliseconds: 60000
+
+logging:
+  level:
+    root: INFO
+    com.netflix: INFO
+    com.netflix.loadbalancer: INFO
+    com.netflix.discovery: INFO
+    org.jooq: DEBUG
