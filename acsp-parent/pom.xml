@@ -214,7 +214,5 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<modules>
-		<module>acsp-parent-infra</module>
-	</modules>
+	
 </project>
