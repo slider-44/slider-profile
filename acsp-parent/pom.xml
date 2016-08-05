@@ -1,0 +1,220 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.acsp</groupId>
+	<artifactId>acsp-parent</artifactId>
+	<version>1.0.0</version>
+
+	<packaging>pom</packaging>
+	<name>acsp-parent</name>
+	<description>Parent POM for ACSP projects.</description>
+
+	<properties>
+
+		<!-- General Properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- JOOQ Properties -->
+		<jooq.group.id>org.jooq.pro</jooq.group.id>
+		<jooq.version>3.7.3</jooq.version>
+		<modelmapper.version>0.7.5</modelmapper.version>
+
+		<!-- Spring/Cloud Properties -->
+		<spring.boot.version>1.3.4.RELEASE</spring.boot.version>
+		<spring.cloud.version>Brixton.RC2</spring.cloud.version>
+		<feign.version>8.13.1</feign.version>
+
+	</properties>
+
+	<dependencyManagement>
+
+		<dependencies>
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring.cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-joda</artifactId>
+				<version>2.6.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.netflix.feign</groupId>
+				<artifactId>feign-ribbon</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+
+			<!-- jOOQ -->
+			<dependency>
+				<groupId>${jooq.group.id}</groupId>
+				<artifactId>jooq</artifactId>
+				<version>${jooq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.modelmapper.extensions</groupId>
+				<artifactId>modelmapper-jooq</artifactId>
+				<version>${modelmapper.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>${modelmapper.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+		
+			<dependency>
+				<groupId>com.futronic</groupId>
+				<artifactId>ScanApi</artifactId>
+				<version>1014_2015.11.19</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.java.dev.jna</groupId>
+				<artifactId>jna</artifactId>
+				<version>4.2.2</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<!-- PROFILES -->
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>dev</build.profile.id>
+				<version.suffix>.dev</version.suffix>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>integ</id>
+			<properties>
+				<build.profile.id>integration-test</build.profile.id>
+				<version.suffix>.integ</version.suffix>
+				<skip.integration.tests>false</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>test</id>
+			<properties>
+				<build.profile.id>test</build.profile.id>
+				<skip.integration.tests>true</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<build.profile.id>prod</build.profile.id>
+				<skip.integration.tests>true</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+
+			<!-- COMPILER -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- RESOURCES -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- SUREFIRE PLUGIN -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<includes>
+						<include>**/When*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>2.2</version>
+			</extension>
+		</extensions>
+
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>archiva.internal</id>
+			<name>Internal Release Repository</name>
+			<url>dav:http://192.168.50.4:8080/repository/internal</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>archiva.snapshots</id>
+			<name>Internal Snapshot Repository</name>
+			<url>dav:http://192.168.50.4:8080/repository/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<modules>
+		<module>acsp-parent-infra</module>
+	</modules>
+</project>
