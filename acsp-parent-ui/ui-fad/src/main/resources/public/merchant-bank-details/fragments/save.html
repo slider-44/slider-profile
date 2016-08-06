@@ -1,0 +1,72 @@
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-edit"></i>Bank Details</h3>
+</div>
+<form name="saveForm" id="saveForm" class="form-de form-horizontal" data-ng-controller="merchantSaveController" novalidate>
+<div class="panel-body">
+ 	<div class="row spacer">
+		<div class="col-md-7">
+			<div class="input-group input-group-sm">
+				<label for="name" class="input-group-addon imagetype-width">
+					Account Name:</label> 
+			     <input type="text" id="name" name="name"
+					class="form-control" data-ng-model="model.accountName" maxlength="150"
+					 required>
+			</div>
+		</div>
+		
+			<div class="col-md-5">
+			<div class="input-group input-group-sm">
+				<label for="name" class="input-group-addon imagetype-width">
+					Account Number:</label> 
+			     <input type="text" id="name" name="name"
+					class="form-control" data-ng-model="model.accountNo" maxlength="25"
+					 required>
+			</div>
+		</div>
+		
+	
+	</div>
+	
+	<div class="row spacer">
+	
+		<div class="col-md-6">
+			<div class="input-group input-group-sm">
+				<label for="name" class="input-group-addon imagetype-width">
+					Bank Name:</label> 
+			     <input type="text" id="name" name="name"
+					class="form-control" data-ng-model="model.bankName" maxlength="150"
+					 required>
+			</div>
+		</div>
+	
+		
+		<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="action" class="input-group-addon imagetype-width" id="action-addon">Account Type: <span class="text-warning">*</span>:</label>
+					<select class="form-control" id = "accountType" data-ng-model="model.accountType"  data-ng-change="moveCaller()"
+					required  data-ng-options="option.name for option in accountTypeList">     			
+					</select>
+				</div>
+		</div> 	
+		
+	</div>
+	
+	    <div class="row spacer">
+      	<div class="col-md-12">
+	      	<div class="btn-group pull-right" >
+				<button type="submit" 
+						data-ng-disabled="saveForm.$invalid"
+				        name="btn_submit"
+				        id = "submit"
+				        class="btn btn-success"
+				        data-ng-click="save()">Save Data 
+			    <i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="saveSpinShow"></i>
+				</button>
+			</div>
+      	</div>
+     	
+	 </div>
+</div>
+</form>
+</div>

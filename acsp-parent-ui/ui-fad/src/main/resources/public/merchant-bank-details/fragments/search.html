@@ -1,0 +1,59 @@
+
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-edit"></i>Merchant</h3>
+</div>
+                
+<div class="panel-body">              
+   <form class="form-search form-horizontal" data-ng-controller="merchantBankDetailsController" data-ng-init='fn_load()' novalidate>
+   <div class="row spacer">
+			<div class="col-md-4" >
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">
+					<i class="fa fa-filter"></i></span>
+					<input type="text" class="form-control" placeholder="Filter"
+					       data-ng-init="merchantFilter = {}" data-ng-model="merchantFilter.$" placeholder="Filter">
+				</div>
+			</div>
+			<div class="col-md-12 spacer">
+				<table data-si-table="tableParams" class="table table-bordered table-striped table-hover table-condensed">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 75px" data-sort-by="agentCd">Code</th>
+							<th style="width: 150px" data-sort-by="agentName">Name</th>
+							<th style="width: 150px" data-sort-by="merchantCategory"><i class="fa fa-date"></i>Category</th>
+							<th style="width: 85px"><i class="fa fa-phone"></i>Tel No</th>
+							<th style="width: 85px"><i class="fa fa-phone"></i>Fax No</th>
+							<th style="display:none"><i class="fa fa-user"></i>Address</th>						
+							<th style="width: 25px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.results | filter:merchantFilter">
+							<td style="font-size: 12px;">{{row.agentCd}}</td>
+							<td style="font-size: 12px;">{{row.agentName}}</td>
+						    <td style="font-size: 12px;">{{row.merchantCategory}}</td>
+						    <td style="font-size: 12px;">{{row.telephoneNo}}</td>
+						    <td style="font-size: 12px;">{{row.faxNo}}</td>
+						    <td style="display:none">{{row.merchantAddress}}</td>
+						    <td style="display:none">{{row.accountName}}</td>
+						    <td style="display:none">{{row.accountNo}}</td>
+						    <td style="display:none">{{row.bankName}}</td>
+						    <td style="display:none">{{row.accountType}}</td>
+							<td class="eventsColumn"><span data-ng-click="move(row)" class="event" title="Copy contents"><i class="fa fa-copy"></i></span></td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.results">
+					    <tr>
+					        <td colspan="6" style="font-size: 12px;">
+					            <si-table-pagination limit="5" />
+					        </td>
+					    </tr>
+					</tfoot>
+				</table>  
+			</div>
+		</div>
+   
+   </form>
+</div>
+</div>
