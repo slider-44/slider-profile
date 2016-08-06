@@ -1,0 +1,23 @@
+<div data-ng-controller ="telefollow-notif-controller">
+	<div id="leftPane" class="col-md-7">
+		<uib-tabset justified = "false">
+			<uib-tab index = "0">
+				<uib-tab-heading >
+	       			Newly Allocated <span class="badge">{{model.new_count}}</span>
+	     		</uib-tab-heading>
+				<div data-ng-include="'ui-cs/telefollow/fragments/new.html'"></div>
+			</uib-tab>
+			
+			<uib-tab index = "1">
+				<uib-tab-heading>
+	       			Tele Follow Tracker <span class="badge">{{model.tracker_count}}</span>
+	     		</uib-tab-heading>
+				<div data-ng-include="'ui-cs/telefollow/fragments/tracker.html'"></div>
+			</uib-tab>	
+		</uib-tabset>
+	</div>
+	
+	<div id="rightPane" class="col-md-5">
+	  	 <div data-ng-include="'ui-cs/telefollow/fragments/info.html'"></div>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title">Product</h3>
+</div>
+	<div class="panel-body telefollow-info">
+		<div class="row spacer">
+			<div class="col-md-12" >
+				<table data-si-table="tableParams"
+					class="table table-bordered table-striped table-hover table-condensed">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 200px" data-sort-by="nameType">Description</th>
+							<th style="width: 120px" data-sort-by="modelNo">Model No</th>
+							<th style="width: 160px" data-sort-by="financePrice">Finance Price</th>
+							<th style="width: 120px" data-sort-by="interest">Interest</th>
+							<th style="width: 120px" data-sort-by="fullPrice">Full Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.products">
+							<td>{{row.nameType}}</td>
+							<td>{{row.modelNo}}</td>
+							<td style="text-align: right">{{row.financePrice | currency : "P " : 2}}</td>
+							<td style="text-align: right">{{row.interest | currency : "P " : 2}}</td>
+							<td style="text-align: right">{{row.fullPrice | currency : "P " : 2}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

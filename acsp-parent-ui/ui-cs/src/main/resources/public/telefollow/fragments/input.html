@@ -1,0 +1,155 @@
+<div class="panel panel-primary ">          
+<div class="panel-body telefollow-info">   
+    
+    <div class="row spacer">
+	     <div class="col-md-6">
+			<div class="input-group input-group-sm">
+				<label for="contacted" class="input-group-addon imagetype-width" id="appStatus-addon">Contacted To <span class="text-warning">*</span> :</label>
+				<select class="form-control" id="contacted" data-ng-model="model.contacted" 
+				        required data-ng-init="model.contacted = contactedList[0]" data-ng-options="option.name for option in contactedList" >
+		  		</select>
+				
+				<span  data-ng-show="centerPane.agreementCd.$dirty && centerPane.agreementCd.$invalid">
+					<span class="requiredSpan" data-ng-show="centerPane.agreementCd.$error.required"
+						  data-ng-messages="centerPane.agreementCd.$error">Required</span>
+				</span>
+				
+				
+			</div>
+		</div>
+		
+				
+  
+		<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="action" class="input-group-addon imagetype-width" id="action-addon">Method <span class="text-warning">*</span>:</label>
+					<select class="form-control" id = "method" data-ng-model="model.method"  data-ng-change="moveCaller()"
+					required data-ng-init="model.method = methodList[0]" data-ng-options="option.name for option in methodList">     			
+					</select>
+				</div>
+		</div> 	
+		
+	
+    </div>
+    
+    <div class="row spacer">
+    	<div class="col-md-6">
+				<div class="input-group input-group-sm date dateOfBirthPicker">
+					<label for="followupDate" class="input-group-addon imagetype-width">FollowUp Date <span class="text-warning">*</span>:</label>
+					<input type="text" class="form-control" 
+			          	     data-uib-datepicker-popup="{{format}}"
+			          		 data-ng-model="model.followupDate" 
+			          		 data-is-open="popup.openedFollowup"
+			          		 data-datepicker-options="dateOptions"
+			          		 data-close-text="Close" 
+			          		 data-alt-input-formats="altInputFormats"
+			          		 placeholder="YYYY-MM-DD" required/>
+					<span class="input-group-btn">
+			        	<button type="button" class="btn btn-default" data-ng-click="openFollowup()"><i class="glyphicon glyphicon-calendar"></i></button>
+			        </span>
+				</div>
+			</div>
+    	
+			
+  
+		<div class="col-md-6">
+			<div class="input-group input-group-sm date dateOfBirthPicker">
+				<label for="commitmentDate" class="input-group-addon imagetype-width">Commitment Date :</label>
+				<input type="text" class="form-control" 
+		          	     data-uib-datepicker-popup="{{format}}"
+		          		 data-ng-model="model.commitmentDate" 
+		          		 data-is-open="popup.openedCommitment"
+		          		 data-datepicker-options="dateOptions"
+		          		 data-close-text="Close" 
+		          		 data-alt-input-formats="altInputFormats"
+		          		 placeholder="YYYY-MM-DD" />
+				<span class="input-group-btn">
+		        	<button type="button" class="btn btn-default" data-ng-click="openCommitment()"><i class="glyphicon glyphicon-calendar"></i></button>
+		        </span>
+			</div>
+		</div> 
+					
+   </div>
+   
+   <div class="row spacer">
+   
+   	<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="status" class="input-group-addon imagetype-width" id="appStatus-addon">Status <span class="text-warning">*</span> :</label>
+					<select class="form-control"  id="status" data-ng-model="model.status" data-ng-click="checkedIfSalesPending()" data-ng-change="moveCaller()"
+							required data-ng-init="model.status = statusList[0]" data-ng-options="option.name for option in statusList">
+					</select>
+				</div>
+			</div>
+    	<div data-ng-show='bySalesPending' class="col-md-6">
+				<div class="input-group input-group-sm date dateOfBirthPicker">
+					<label for="followupDate" class="input-group-addon imagetype-width">Sales Pending :</label>
+					<input type="text" class="form-control" 
+			          	     data-uib-datepicker-popup="{{format}}"
+			          		 data-ng-model="model.salesPending" 
+			          		 data-is-open="popup.openedSalesPending"
+			          		 data-datepicker-options="dateOptions"
+			          		 data-close-text="Close" 
+			          		 data-alt-input-formats="altInputFormats"
+			          		 placeholder="YYYY-MM-DD" />
+					<span class="input-group-btn">
+			        	<button type="button" class="btn btn-default" data-ng-click="opensalesPending()"><i class="glyphicon glyphicon-calendar"></i></button>
+			        </span>
+				</div>
+			</div>	
+   </div>
+    
+    	
+      <div class="row spacer">
+     		<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="action" class="input-group-addon imagetype-width" id="action-addon">Action <span class="text-warning">*</span>:</label>
+					<select class="form-control" id = "action" data-ng-model="model.action" data-ng-click="checkedActionIfCancel()" data-ng-change="moveCaller()"
+					required data-ng-init="model.action = actionList[0]" data-ng-options="option.name for option in actionList">
+     				
+					</select>
+				</div>
+			</div>
+			
+		 	<div data-ng-show='byCancel' class="col-md-6" >
+				<div class="input-group input-group-sm">
+					<label for="cancel" class="input-group-addon imagetype-width" id="cancelReason">Cancel Reason <span class="text-warning">*</span> :</label>
+					<select class="form-control" id ="cancelReason" data-ng-model="model.cancelReason" data-ng-change="moveCaller()" 
+						 data-ng-init="model.cancelReason = cancelList[0]" data-ng-options="option.name for option in cancelList">
+					</select>
+				</div>
+			</div>
+    </div>
+     
+     <div class="row spacer">
+     	<div class="col-md-12">
+			<div class="input-group input-group-sm">
+				<label for="status" class="input-group-addon imagetype-width" id="appStatus-addon">Comments :</label>
+				<input type="text" id="comments" name="comments" class="form-control" data-ng-model="model.comments" maxlength="500">
+			</div>
+		</div>
+     </div>
+      <div class="row spacer">
+      	<div class="col-md-12">
+	      	<div class="btn-group pull-right" >
+				<button type="submit" 
+						data-ng-disabled="saveForm.$invalid"
+				        name="btn_submit"
+				        id = "submit"
+				        class="btn btn-success"
+				        data-ng-click="save()">Save Data 
+			    <i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="saveSpinShow"></i>
+				</button>
+				<button type='submit'
+				        name="btn_submit"
+				        class="btn btn-primary"
+				        name="resetForm"
+				        value="Clear Data"
+				        data-ng-click="reset()">Clear</button>
+			</div>
+      	</div>
+     	
+	 </div>
+	 </div>
+	 </div>
+	

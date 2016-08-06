@@ -1,0 +1,172 @@
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-edit"></i> Input Form</h3>
+</div>
+<div class="panel-body">
+<form name="saveForm" id="saveForm" class="form-de form-horizontal" data-ng-controller="customerSave" novalidate>
+	
+ 	<div class="row">
+ 		
+		<div  class="col-md-12">	 	
+			<div class="btn-group pull-right" data-ng-show="!show">
+				<button name="new_app" data-ng-disabled="isDisabledStart || show" data-ng-click="callStartFunction()" class="btn btn-success">Start Call</button>
+			</div>
+			
+			<div class="btn-group" data-ng-show="show">
+				<button name="callCancel" class="btn btn-danger" data-ng-click="callCancel()">Cancel Call</button>
+			</div>
+			
+			<div class="btn-group pull-right" data-ng-show="show">
+			  <button name="endCall" 
+			          data-ng-disabled="!isDisabledStart" 
+			          class="btn btn-success" 
+			          data-ng-click="callEndFunction()" 
+			          data-ng-show="!callEnded">End Call</button>
+				<button type="submit" 
+				        data-ng-disabled="saveForm.$invalid"
+				        name="btn_submit"
+				        class="btn btn-success"
+				        data-ng-click="save()"
+				        data-ng-show="callEnded">Save Data
+					       <i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="saveSpinShow"></i>
+				</button>
+				<button type='submit'
+				        name="btn_submit"
+				        class="btn btn-primary"
+				        name="resetForm"
+				        value="Clear Data"
+				        data-ng-click="reset()">Clear</button>
+			</div>
+		</div>
+    </div>
+ 
+	<input type="hidden" id="callEnd"  name="callEnd" data-ng-model="callEnd"/>
+	<input type="hidden" id="callStart" name="callStart" data-ng-model="callStart"/>
+	<input type="hidden" id="customerCd" name="customerCd" data-ng-model="customerCd"/>
+	
+	<div class="hideClass" data-ng-show="show">
+		<div class="row spacer">
+			<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="callStartParse" class="input-group-addon imagetype-width">Call Start <span class="text-warning">*</span> : </label>
+					<input type="text" id="callStartParse" name="callStartParse" class="form-control" data-ng-model="model.callStartParse" maxlength="250" disabled required>
+					<span class="requiredSpan" data-ng-show="saveForm.callStartParse.$dirty && saveForm.callStartParse.$invalid">
+	 					<span data-ng-show="saveForm.callStartParse.$error.required">Call Start is required.</span>
+	 				</span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group input-group-sm">
+					<label for="callEndParse" class="input-group-addon imagetype-width">Call End <span class="text-warning">*</span> : </label>
+					<input type="text" id="callEndParse" name="callEndParse" class="form-control" data-ng-model="model.callEndParse" maxlength="250" disabled required>
+					<span class="requiredSpan" data-ng-show="saveForm.callEndParse.$dirty && saveForm.callEndParse.$invalid">
+	 					<span data-ng-show="saveForm.callEndParse.$error.required">Call End is required.</span>
+	 				</span>
+				</div>
+			</div>
+    	</div>
+	    <div class="row spacer">
+	    	<div  class="col-md-9">
+				<div class="input-group input-group-sm svX3">
+					<label for="category" class="input-group-addon imagetype-width">Call Category <span class="text-warning">*</span> :</label>
+					<select name="category" id="category" class="form-control" data-ng-model="model.category"  required>
+						      <option value="LON">LON</option>
+		     				  <option value="STATUS OF APPLICATION">STATUS OF APPLICATION</option>
+		     				  <option value="GENERAL INQUIRY">GENERAL INQUIRY</option>
+		     				  <option value="BALANCE INQUIRY">BALANCE INQUIRY</option>
+		     				  <option value="RETENTION">RETENTION</option>
+					</select>
+					<span data-ng-show="saveForm.category.$dirty && saveForm.category.$invalid">
+	 					 <span data-ng-show="saveForm.category.$error.required">Call Category is required.</span>
+	 				</span>
+				</div>
+	    	</div>
+	    </div>
+    
+		<div class="row spacer">
+			<div  class="col-md-8">
+				<div class="input-group input-group-sm svX3">
+					<label for="inputAppStatus" class="input-group-addon imagetype-width" id="appStatus-addon" >Caller <span class="text-warning">*</span> :</label>
+					<select class="form-control" data-ng-model="model.callFrom" required>
+						      <option value="CUSTOMER">CUSTOMER</option>
+		     				  <option value="MERCHANT">MERCHANT</option>
+		     				  <option value="PROMOTER">PROMOTER</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row spacer">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<label for="name" class="input-group-addon imagetype-width">Name <span class="text-warning">*</span> :</label>
+					<input type="text" id="name" name="name" class="form-control" data-ng-model="model.name" maxlength="250" required>
+					<span class="requiredSpan"  data-ng-show="saveForm.name.$dirty && saveForm.name.$invalid">
+	 					<span data-ng-show="saveForm.name.$error.required">Name is required.</span>
+	 				</span>
+				</div>
+			</div>
+    	</div>
+    
+		<div class="row spacer">
+			<div class="col-md-8">
+				<div class="input-group input-group-sm date dateOfBirthPicker">
+					<label for="birthDay" class="input-group-addon imagetype-width">Birth Date :</label>
+					<input type="text" class="form-control"
+						     name="birthDay" 
+			          	     data-uib-datepicker-popup="{{format}}"
+			          		 data-ng-model="model.birthDay" 
+			          		 data-is-open="popup.opened"
+			          		 data-datepicker-options="dateOptions"
+			          		 data-close-text="Close" 
+			          		 data-alt-input-formats="altInputFormats"
+			          		 placeholder="YYYY-MM-DD" />
+					<span class="input-group-btn">
+			        	<button type="button" class="btn btn-default" data-ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+			        </span>
+			        <span class="requiredSpan"  data-ng-show="saveForm.birthDay.$dirty && saveForm.birthDay.$invalid">
+	 					<span data-ng-show="saveForm.birthDay.$error.date">Date is invalid.</span>
+	 				</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row spacer">	
+			<div class="col-md-8">
+				<div class="input-group input-group-sm svX3">
+					<label for="contactNum" class="input-group-addon imagetype-width">Contact Number <span class="text-warning">*</span> :</label>
+					<input type="text" name="contactNum" id="contactNum" class="form-control" data-ng-model="model.contactNum" maxlength="250" required/>
+					<span class="requiredSpan" data-ng-show="saveForm.contactNum.$dirty && saveForm.contactNum.$invalid">
+	 					 <span data-ng-show="saveForm.contactNum.$error.required">Contact number is required.</span>
+	 				 </span>
+				</div>	
+			</div>
+		</div>
+    
+    	<div class="row spacer">
+    		<div class="col-md-8">
+	    		<div class="input-group input-group-sm svX3">
+					<label for="appCd" class="input-group-addon imagetype-width">Application Code :</label>
+					<input type="text" id="appCd" class="form-control" data-ng-model="model.appCd" maxlength="20"/>
+				</div>
+			</div>
+    	</div>
+    
+
+     	<div class="row spacer">
+	     	<div class="col-md-12">
+				<div class="input-group input-group-sm svX3">
+					<label for="comment" class="input-group-addon imagetype-width">Remarks <span class="text-warning">*</span> :</label>
+					<textarea name="comment" data-ng-model="model.comment" class="form-control" rows="5" maxlength="250" required></textarea>
+					<span class="requiredSpan" data-ng-show="saveForm.comment.$dirty && saveForm.comment.$invalid">
+	 					<span data-ng-show="saveForm.comment.$error.required">Remarks is required.</span>
+	 				</span>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+</form>
+
+</div>
+</div>

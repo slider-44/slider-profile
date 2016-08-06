@@ -1,0 +1,46 @@
+<div class="panel panel-primary">
+
+	<div class="panel-body telefollow-info">
+		<div class="row spacer">
+			<div class="col-md-4" >
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon">
+						<i class="fa fa-filter"></i></span>
+						<input type="text" class="form-control" placeholder="Filter"
+						       data-ng-init="historyFilter = {}" data-ng-model="historyFilter.$" placeholder="Filter">
+					</div>
+			</div>
+			<div class="col-md-12 spacer">
+				<table data-si-table="tableParams"
+					class="table table-bordered table-striped table-hover table-condensed">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 170px" data-sort-by="createDate">Contacted</th>
+							<th style="width: 80px" data-sort-by="status">Status</th>
+							<th style="width: 80px" data-sort-by="action">Action</th>
+							<th style="width: 100px" data-sort-by="followupDate">Follow Up</th>
+							<th style="width: 100px" data-sort-by="commitmentDate">Commit</th>
+							<th data-sort-by="comment">Comment</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.telefollowHistory | filter:historyFilter">
+							<td>{{row.createDate}} - {{row.contacted}}</td>
+							<td>{{row.status}}</td> 
+							<td>{{row.action}}</td>
+							<td>{{row.followupDate}}</td>
+							<td>{{row.commitmentDate}}</td>
+							<td>{{row.comment}}</td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.telefollowHistory">
+						<tr>
+							<td colspan="7" style="font-size: 12px;">
+							<si-table-pagination limit="5" /></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>		
+		</div>
+	</div>
+</div>

@@ -1,0 +1,80 @@
+
+<div class="panel panel-primary">
+
+                        
+<div class="panel-body">              
+      
+    <form class="form-search form-horizontal" data-ng-controller="telefollowNewController" data-ng-init='fn_load()' novalidate> 
+		
+		<div class="row spacer">
+			<div class="col-md-4" >
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">
+					<i class="fa fa-filter"></i></span>
+					<input type="text" class="form-control" placeholder="Filter"
+					       data-ng-init="teleFilter = {}" data-ng-model="teleFilter.$" placeholder="Filter">
+				</div>
+			</div>
+			<div class="col-md-12 spacer">
+				<table data-si-table="tableParams" class="table table-bordered table-striped table-hover table-condensed">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 130px" data-sort-by="fullName">Full Name</th>
+							<th style="width: 150px" data-sort-by="appCd">Application No</th>
+							<th style="width: 150px" data-sort-by="approvalDate"><i class="fa fa-date"></i>Approval Date</th>
+							<th style="width: 150px" data-sort-by="storeName">Store Name</th>
+							<th style="width: 160px" data-sort-by="storePhone">Store Phone</th>
+							<th style="width: 160px" data-sort-by="mobileNo">Mobile No</th>
+							<th style="display:none">Products</th>
+							<th style="display:none">History</th>
+							<th style="display:none" data-sort-by="fistName"><i class="fa fa-user"></i>First Name</th>
+							<th style="display:none" data-sort-by="lastName"><i class="fa fa-user"></i>Last Name</th>
+							<th style="display:none" data-sort-by="approvalCode"><i class="fa fa-date"></i>Approval Code</th>
+							<th style="display:none" data-sort-by="storePic"><i class="fa fa-date"></i>Store PIC</th>
+						
+							<th style="display:none" data-sort-by="homePhone"><i class="fa fa-phone"></i>Home Phone</th>
+							<th style="display:none" data-sort-by="officePhone"><i class="fa fa-phone"></i>Office Phone</th>
+							<th style="display:none" data-sort-by="applicationDate"><i class="fa fa-date"></i>Application Date</th>
+						
+							<th style="width: 25px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.results | filter:teleFilter">
+							<td style="font-size: 12px;">{{row.fullName}}</td>
+							<td style="font-size: 12px;">{{row.appCd}}</td>
+						    <td style="font-size: 12px;">{{row.approvalDate}}</td>
+						    <td style="font-size: 12px;">{{row.storeName}}</td>
+						    <td style="font-size: 12px;">{{row.storePhone}}</td>
+						    <td style="font-size: 12px;" >{{row.mobileNo}}</td>
+						    <td style="display:none">
+								<div data-ng-repeat="product in row.products">{{product.nameType}}</div> 
+							</td>
+							  <td style="display:none">
+								<div data-ng-repeat="history in row.telefollowHistory">{{history.sysAppCd}}</div> 
+							</td>
+							<td style="display:none" >{{row.firstName}}</td>
+							<td style="display:none" >{{row.lastName}}</td>
+							<td style="display:none" >{{row.approvalCode}}</td>
+							<td style="display:none" >{{row.storePic}}</td>
+							
+							<td style="display:none" >{{row.homePhone}}</td>
+							<td style="display:none" >{{row.officePhone}}</td>
+							<td style="display:none" >{{row.applicationDate}}</td>
+						
+							<td class="eventsColumn"><span data-ng-click="move(row)" class="event" title="Copy contents"><i class="fa fa-copy"></i></span></td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.results">
+					    <tr>
+					        <td colspan="6" style="font-size: 12px;">
+					            <si-table-pagination limit="10" />
+					        </td>
+					    </tr>
+					</tfoot>
+				</table>  
+			</div>
+		</div>
+    </form> 
+</div>
+</div>

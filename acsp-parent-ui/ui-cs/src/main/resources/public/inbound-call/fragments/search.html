@@ -1,0 +1,200 @@
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-search"></i> Search</h3>
+</div>
+                        
+<div class="panel-body">              
+      
+    <form class="form-search form-horizontal" data-ng-controller='searchController' novalidate>
+    
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group input-group-sm svX3">
+					<label for="inputAppStatus" class="input-group-addon imagetype-width" id="appStatus-addon">Search By :</label>
+					<select class="form-control" data-ng-model="searchBy" data-ng-click="checkerSearchBy()" data-ng-change="moveCaller()">
+		     				  <option value="CUSTOMER INFORMATION">CUSTOMER INFORMATION</option>
+		     				  <option value="STORE NAME">STORE NAME</option>
+					</select>
+				</div>
+			</div>
+	    </div>
+	    
+	    <div class="row spacer" data-ng-show='byPhone' class="byPhone">
+	    	<div class="col-md-6">
+				<div class="input-group input-group-sm svX3">
+					<label for="firstName" class="input-group-addon imagetype-width">Contact No. :</label>
+					<input type="text" id="homeTel" class="form-control" data-ng-model="model.homeTel" maxlength="11"/>
+				</div>
+			</div>
+	   	</div>
+	
+	     <div data-ng-show='customerName' class="customerName">
+		     <div class="row spacer">
+		    	<div class="col-md-6">
+					<div class="input-group input-group-sm svX3">
+						<label for="firstName" class="input-group-addon imagetype-width">First Name :</label>
+						<input type="text" id="firstName" class="form-control" data-ng-model="model.firstName" maxlength="50"/>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="input-group input-group-sm svX3">
+						<label for="lastName" class="input-group-addon imagetype-width">Last Name :</label>
+						<input type="text" id="lastName" class="form-control" data-ng-model="model.lastName"  maxlength="50" />
+					</div>
+				</div>
+		    </div>
+		    
+			<div class="row spacer">
+		
+			<div class="col-md-6">
+				<div class="input-group input-group-sm date dateOfBirthPicker">
+					<label for="birthDay" class="input-group-addon imagetype-width">Birth Date :</label>
+					<input type="text" class="form-control" 
+			          	     data-uib-datepicker-popup="{{format}}"
+			          		 data-ng-model="model.birthDay" 
+			          		 data-is-open="popup.opened"
+			          		 data-datepicker-options="dateOptions"
+			          		 data-close-text="Close" 
+			          		 data-alt-input-formats="altInputFormats"
+			          		 placeholder="YYYY-MM-DD" />
+					<span class="input-group-btn">
+			        	<button type="button" class="btn btn-default" data-ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+			        </span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group input-group-sm svX3">
+					<label for="firstName" class="input-group-addon imagetype-width">Contact No. :</label>
+					<input type="text" id="homeTel" class="form-control" data-ng-model="model.homeTel" maxlength="11"/>
+				</div>
+			</div>
+		    </div>
+		    
+		    <div class="row spacer">
+			    <div class="col-md-6">
+			    	<div class="input-group input-group-sm svX3">
+							<label for="appCd" class="input-group-addon imagetype-width">Application Code :</label>
+							<input type="text" id="appCd" class="form-control" data-ng-model="model.appCd" maxlength="11" placeholder="999999999-9" />  
+					</div> 
+				</div>
+				<div class="col-md-6">	
+					<div class="input-group input-group-sm svX3">
+							<label for="agreementCd" class="input-group-addon imagetype-width">Agreement Code :</label>
+							<input type="text" id="agreementCd" class="form-control" data-ng-model="model.agreementCd" maxlength="20" placeholder="9-99999999-9" />  
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	    
+	    <div class="row spacer" data-ng-show='byStore' class="byStore">
+			
+			<div class="col-md-12">
+				<div class="input-group input-group-sm svX3">
+					<label for="storeName" class="input-group-addon imagetype-width">Store Name :</label>
+					<input type="text" id="storeName" class="form-control" data-ng-model="model.storeName"  maxlength="50" />
+				</div>
+			</div>
+			
+	    </div>
+	    
+	    <div class="row spacer" data-ng-show='byStore' class="byStore">
+			<div class="col-md-6">
+				<div class="input-group input-group-sm svX3">
+					<label for="storeCd" class="input-group-addon imagetype-width">Store Code :</label>
+					<input type="text" id="storeCd" class="form-control" data-ng-model="model.storeCd" maxlength="11" />
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="input-group input-group-sm svX3">
+					<label for="firstName" class="input-group-addon imagetype-width">Contact No. :</label>
+					<input type="text" id="homeTel" class="form-control" data-ng-model="model.storeTel" maxlength="11"/>
+				</div>
+			</div>
+	    </div>
+	
+		<div class="row spacer">
+			<div class="col-md-4" >
+				<div class="btn-group">
+					<button name="search_app" data-ng-click='search()' class="btn btn-success">Search<i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="spinShow"></i></button>
+					<button name="resetForm" data-ng-click='reset()' class="btn btn-primary">Reset</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row spacer">
+		
+			<div class="col-md-4" >
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">
+					<i class="fa fa-filter"></i></span>
+					<input type="text" class="form-control" placeholder="Filter"
+					       data-ng-init="userFilter = {}" data-ng-model="userFilter.$" placeholder="Filter">
+				</div>
+			</div>
+			
+			<div class="col-md-12 spacer" data-ng-if="caller1">
+				<table data-si-table="tableParams" class="table table-bordered table-striped ">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 220px" data-sort-by="fullName"><i class="fa fa-user"></i> Full Name</th>
+							<th data-sort-by="birthDay"><i class="fa fa-birthday-cake"></i> Birth</th>
+							<th data-sort-by="telNo"><i class="fa fa-phone"></i> Home</th>
+							<th data-sort-by="mobileNo"><i class="fa fa-phone"></i> Mobile</th>
+							<th style="width: 120px" data-sort-by="appCd">App Code</th>
+							<th style="width: 50px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.customers | filter:userFilter">
+							<td>{{row.fullName}}</td>
+							<td>{{row.birthDay}}</td>
+							<td>{{row.telNo}}</td>
+							<td>{{row.mobileNo}}</td>
+							<td>{{row.appCd}}<br/>{{row.agreementCd}}</td>
+							<td class="eventsColumn"><span data-ng-click="move(row)" class="event" title="Copy contents"><i class="fa fa-copy"></i></span></td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.customers">
+					    <tr>
+					        <td colspan="6">
+					            <si-table-pagination limit="10" />
+					        </td>
+					    </tr>
+					</tfoot>
+				</table>  
+			</div>
+				    
+		    <div class="col-md-12 spacer" data-ng-if="caller2">
+		    	<table data-si-table="tableParams" class="table table-bordered table-striped ">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 125px" data-sort-by="storeCd">Store Code</th>
+							<th data-sort-by="storeName"><i class="fa fa-building"></i> Store Name</th>
+							<th style="width: 125px" data-sort-by="telNo"><i class="fa fa-phone"></i> Phone</th>
+							<th style="width: 50px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.stores | filter:userFilter">
+							<td>{{row.storeCd}}</td>
+							<td>{{row.storeName}}</td>
+							<td>{{row.telNo}}</td>
+							<td class="eventsColumn"><span data-ng-click="move(row)" class="event" title="Copy contents"><i class="fa fa-copy"></i></span></td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.stores">
+					    <tr>
+					        <td colspan="4">
+					            <si-table-pagination limit="10" />
+					        </td>
+					    </tr>
+					</tfoot>
+				</table>  
+		 	</div>
+		 	
+		</div>
+    </form> 
+</div>
+</div>
