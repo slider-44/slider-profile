@@ -1,0 +1,86 @@
+<div data-ng-controller="uploadReturnedMailCtrl">
+  
+  <div id="leftPane" class="col-md-5">
+  
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-upload" aria-hidden="true"></i> Returned Mail Upload</h3>
+      </div>
+                              
+      <div class="panel-body">  
+        <form>
+          
+          <div class="input-group">
+            <label class="control-label input-group-addon" for="uploadReturnedMail">Excel file path</label>
+            <input id="uploadReturnedMail"  class="form-control" type="file" data-acsp-file data-acsp-file-model="model.uploadReturnedMail" />
+          </div>
+          
+          <div class="btn-group pull-right spacer">
+            <button data-ng-click="uploadFile()" class="btn btn-success">Upload <i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="spinShow"></i></button>
+            <button data-ng-click="cancel()" class="btn btn-primary">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  
+  <div id=rightPane class="col-md-7">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-question-circle" aria-hidden="true"></i> Upload Result</h3>
+      </div>
+                              
+      <div class="panel-body" style="min-height: 500px;">  
+        
+        <div class="row">
+        
+	        <div class="col-md-4" >
+		        <div class="input-group">
+		          <span class="input-group-addon">
+		          <i class="fa fa-filter"></i></span>
+		          <input type="text" class="form-control" placeholder="Filter"
+		                 data-ng-init="resultFilter = {}" data-ng-model="resultFilter.$" placeholder="Filter">
+		        </div>
+	        </div>
+	        
+	        <div class="col-md-12 spacer">
+	        
+		        <table data-si-table="tableParams" class="table table-bordered table-striped">
+		          <thead class="text-primary">
+		            <tr>
+		              <th style="width: 150px" data-sort-by="customerCode"><i class="fa fa-user"></i> Customer Code</th>
+		              <th style="width: 180px" data-sort-by="creditInfo"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Credit Info</th>
+		              <th style="width: 150px" data-sort-by="confirmedBy"><i class="fa fa-question" aria-hidden="true"></i> Confirmed By</th>
+		              <th data-sort-by="status"><i class="fa fa-question" aria-hidden="true"></i> Status</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		            <tr data-si-sortable data-ng-repeat="row in model.result.mailUploads | filter:resultFilter">
+		              <td>{{row.customerCode}}</td>
+		              <td>{{row.creditInfoDisplay}}</td>
+		              <td>{{row.confirmedByDisplay}}</td>
+		              <td>
+		                <span class="label label-success" data-ng-show="row.valid">{{row.validDisplay}}</span>
+		                <span class="label label-danger" data-ng-show="!row.valid">{{row.validDisplay}}</span>
+                    <div class="text-danger" data-ng-repeat="error in row.errors">{{error.fieldError}}</div>        
+		              </td>
+		            </tr>
+		          </tbody>
+		          <tfoot>
+		              <tr>
+		                  <td colspan="6">
+		                      <si-table-pagination limit="10" />
+		                  </td>
+		              </tr>
+		          </tfoot>
+		        </table>
+	        
+	        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+</div>
