@@ -83,7 +83,7 @@ public class InstallmentDataStream implements DataStream {
 				+ ",ROUND(T_PAYSTAGESAGREEMENT.FINANCEPRICE) FINANCEPRICE"
 				+ ",T_PAYSTAGESAGREEMENT.NUMBEROFINSTALMENT AS NUMBEROFINSTALLMENT"
 				+ ",TO_CHAR(TO_DATE(T_PAYSTAGESAGREEMENT.HPFIRSTDAY,'YYYYMMDD'), 'DDMMYYYY') HPFIRSTDAY"
-				//+ ",ROUND(T_PAYSTAGESAGREEMENT.MONTHLYPAYMENT) AS MONTHLYPAYMENT"
+				+ ",ROUND(T_PAYSTAGESAGREEMENT.MONTHLYPAYMENT) AS MONTHLYPAYMENT"
 				+ " FROM T_AGREEMENT"
 				+ " INNER JOIN T_PAYSTAGESAGREEMENT ON T_AGREEMENT.AGREEMENTCD =T_PAYSTAGESAGREEMENT.AGREEMENTCD"
 				+ " LEFT JOIN M_CUSTOMER ON M_CUSTOMER.CUSTOMERCD = T_AGREEMENT.CUSTOMERCD"
@@ -98,16 +98,16 @@ public class InstallmentDataStream implements DataStream {
 					+ " WHERE AGREEMENTSTATUS IN (1,2,4,5,6) "
 					+ " GROUP BY T_PAYMENT.AGREEMENTCD) TBLMonthlyPaymentAmount";
 		 
-		 String SQLContactEndActualDate = "(SELECT DISTINCT T_PAYMENT.AGREEMENTCD,TO_CHAR(TO_DATE(MAX(T_PAYMENT.PAYMENTDATE),'YYYYMMDD'), 'DDMMYYYY') AS CONTRACTENDACTUAL"
+		 /*String SQLContactEndActualDate = "(SELECT DISTINCT T_PAYMENT.AGREEMENTCD,TO_CHAR(TO_DATE(MAX(T_PAYMENT.PAYMENTDATE),'YYYYMMDD'), 'DDMMYYYY') AS CONTRACTENDACTUAL"
 				 + " FROM T_PAYMENT INNER JOIN T_AGREEMENT ON T_AGREEMENT.AGREEMENTCD = T_PAYMENT.AGREEMENTCD"
-				 + " GROUP BY T_PAYMENT.AGREEMENTCD) TBLContactEndActualDate";
+				 + " GROUP BY T_PAYMENT.AGREEMENTCD) TBLContactEndActualDate";*/
 		 
-		 /*String SQLContactEndActualDate = "(SELECT AGREEMENTCD"
+		 String SQLContactEndActualDate = "(SELECT AGREEMENTCD"
 		 		 + " ,CASE WHEN AGREEMENTSTATUS IN (6,11,5) THEN CONTRACTENDACTUAL ELSE NULL END CONTRACTENDACTUAL FROM"
 		 		 + " (SELECT DISTINCT  T_PAYMENT.AGREEMENTCD,T_AGREEMENT.AGREEMENTSTATUS"
 		 		 + " ,TO_CHAR(TO_DATE(MAX(T_PAYMENT.PAYMENTDATE),'YYYYMMDD'), 'DDMMYYYY') AS CONTRACTENDACTUAL"
 		 		 + "  FROM T_PAYMENT INNER JOIN T_AGREEMENT ON T_AGREEMENT.AGREEMENTCD = T_PAYMENT.AGREEMENTCD"
-				 + " GROUP BY T_PAYMENT.AGREEMENTCD, T_AGREEMENT.AGREEMENTSTATUS)) TBLContactEndActualDate";*/
+				 + " GROUP BY T_PAYMENT.AGREEMENTCD, T_AGREEMENT.AGREEMENTSTATUS)) TBLContactEndActualDate";
 		 
 		 String SQLLastPaymentAmount = "(SELECT T_MONTHLYCREDIT.AGREEMENTCD"
 			 		+ ",ROUND(SUM(REALPAYPRINCIPAL+REALPAYINTEREST+REALPAYCOMPENSATION+REALPAYCOLLECTIONCHARGE+COMPENSATION)) LASTPAYMENTAMOUNT"
@@ -204,10 +204,10 @@ public class InstallmentDataStream implements DataStream {
 				.select(DSL.field("MAIN.FINANCEPRICE").as("FINANCED_AMOUNT"))
 				.select(DSL.field("MAIN.NUMBEROFINSTALLMENT").as("NUMBER_OF_INSTALLMENT"))
 				.select(DSL.field("MAIN.HPFIRSTDAY").as("FIRST_PAYMENT_DATE"))
-				//.select(DSL.field("MAIN.MONTHLYPAYMENT").as("MONTHLY_PAYMENT"))
+				.select(DSL.field("MAIN.MONTHLYPAYMENT").as("MONTHLY_PAYMENT"))
 				.select(DSL.field("TBLNextPaymentDate.NEXTPAYMENTDATE").as("NEXT_PAYMENT_DATE"))
 				.select(DSL.field("TBLLastPaymentDate.LASTPAYMENTDATE").as("LAST_PAYMENT_DATE"))
-				//.select(DSL.field("TBLContactEndActualDate.CONTRACTENDACTUAL").as("CONTRACT_END_ACTUAL_DATE"))
+				.select(DSL.field("TBLContactEndActualDate.CONTRACTENDACTUAL").as("CONTRACT_END_ACTUAL_DATE"))
 				.select(DSL.field("TBLLastPaymentAmount.LASTPAYMENTAMOUNT").as("LAST_PAYMENT_AMOUNT"))
 				.select(DSL.field("TBLOustandingBalance.BALANCE").as("OUSTANDING_BALANCE"))
 				.select(DSL.field("TBLOustandingPaymentNumber.REMAININGINSTALLMENTS").as("OUSTANDING_PAYMENT_NUM"))
@@ -218,7 +218,7 @@ public class InstallmentDataStream implements DataStream {
 				.from(SQLMain)			
 				.leftJoin(SQLLastPaymentDate).on(DSL.field("TBLLastPaymentDate.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
 				.leftJoin(SQLMonthlyPaymentAmount).on(DSL.field("TBLMonthlyPaymentAmount.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
-				//.leftJoin(SQLContactEndActualDate).on(DSL.field("TBLContactEndActualDate.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
+				.leftJoin(SQLContactEndActualDate).on(DSL.field("TBLContactEndActualDate.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
 				.leftJoin(SQLLastPaymentAmount).on(DSL.field("TBLLastPaymentAmount.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
 				.leftJoin(SQLOustandingBalance).on(DSL.field("TBLOustandingBalance.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
 				.leftJoin(SQLOustandingPaymentNumber).on(DSL.field("TBLOustandingPaymentNumber.AGREEMENTCD").equal(DSL.field("MAIN.AGREEMENTCD")))
@@ -389,7 +389,7 @@ public class InstallmentDataStream implements DataStream {
 				.select(NESTED.field("CONTRACT_START_DATE"))
 				.select(NESTED.field("CONTRACT_REQUEST_DATE"))
 				.select(NESTED.field("CONTRACT_END_PLANNED_DATE"))
-				//.select(NESTED.field("CONTRACT_END_ACTUAL_DATE"))
+				.select(NESTED.field("CONTRACT_END_ACTUAL_DATE"))
 				.select(NESTED.field("LAST_PAYMENT_DATE"))
 				.select(reorganizedCreditCode.as("REORGANIZED_CREDIT_CODE"))
 				.select(boardResolutionFlag.as("BOARD_RESOLUTION_FLAG"))
@@ -399,7 +399,7 @@ public class InstallmentDataStream implements DataStream {
 				.select(creditPurpose.as("CREDIT_PURPOSE"))
 				.select(paymentPeriodicity.as("PAYMENT_PERIODICITY"))
 				.select(methodOfPayment.as("PAYMENT_METHOD"))
-				//.select(NESTED.field("MONTHLY_PAYMENT"))
+				.select(NESTED.field("MONTHLY_PAYMENT"))
 			 	.select(NESTED.field("FIRST_PAYMENT_DATE"))
 			 	.select(NESTED.field("LAST_PAYMENT_AMOUNT"))
 			 	.select(NESTED.field("NEXT_PAYMENT_DATE"))

@@ -53,7 +53,7 @@ public class SDFExecutor {
 	public void init() {
 		
 		sDFProcessorList.add(headerSDFProcessor);
-		//sDFProcessorList.add(individualSDFProcessor);
+		sDFProcessorList.add(individualSDFProcessor);
 		sDFProcessorList.add(installmentSDFProcessor);
 		sDFProcessorList.add(footerSDFProcessor);
 		
@@ -64,7 +64,7 @@ public class SDFExecutor {
 		PrintInfoDTO printInfoDTO = new PrintInfoDTO();
 		
 		for(SDFProcessor sDFProcessor: sDFProcessorList ) {
-			//printInfoDTO.setIsIndividualRecord(sDFProcessor == individualSDFProcessor);
+			printInfoDTO.setIsIndividualRecord(sDFProcessor == individualSDFProcessor);
 			printInfoDTO.setIsInstallmentRecord(sDFProcessor == installmentSDFProcessor);
 			printInfoDTO.setIsFooterRecord(sDFProcessor == footerSDFProcessor);
 			printInfoDTO.setIsHeaderRecord(sDFProcessor == headerSDFProcessor);

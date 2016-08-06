@@ -37,9 +37,9 @@ public class CombineData {
 		String time  = dateFormat.format(new Date());
 		
 		//List of Files to merge
-		//String []filename={"HD.txt","ID.txt", "CI.txt", "FT.txt"};
+		String []filename={"HD.txt","ID.txt", "CI.txt", "FT.txt"};
 		
-		String []filename={"HD.txt","CI.txt", "FT.txt"};
+		//String []filename={"HD.txt","CI.txt", "FT.txt"};
 		
 		//String []filename={"HD.txt","FT.txt"};
 		File[] filesToMerge = new File[filename.length];

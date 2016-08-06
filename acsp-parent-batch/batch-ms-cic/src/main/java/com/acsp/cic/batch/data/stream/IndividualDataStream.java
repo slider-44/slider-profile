@@ -92,7 +92,7 @@ public class IndividualDataStream implements DataStream {
 				.select(CONTACT_TYPE_1.as("CONTACT_TYPE_1"))
 				.select(M_CUSTOMER.MOBILENO.as("CONTACT_VALUE_1"))
 				.select(CONTACT_TYPE_2.as("CONTACT_TYPE_2"))
-				.select(M_CUSTOMER.EMAIL.as("CONTACT_VALUE_2"))
+				.select(M_CUSTOMER.HOMETEL.as("CONTACT_VALUE_2"))
 				.select(EMPLOYMENTTRADENAME.as("EMPLOYMENT_TRADE_NAME"))
 				.select(CORPTEL.as("EMPLOYMENT_PHONE"))
 				.select(M_CUSTOMER.SALARY.as("GROSS_INCOME"))
@@ -360,8 +360,8 @@ public class IndividualDataStream implements DataStream {
                 .select(soleTraderContactValue2.as("SOLE_TRADER_CONTACT_VALUE_2"))
              
 				.from(NESTED)
-				.where(NESTED.field("CONTACT_TYPE_1").isNotNull().and(NESTED.field("CONTACT_TYPE_2").isNotNull()))
-				.orderBy(NESTED.field("PROVIDER_SUBJECT_NUM"))
+				//.where(NESTED.field("CONTACT_TYPE_1").isNotNull().and(NESTED.field("CONTACT_TYPE_2").isNotNull()))
+				//.orderBy(NESTED.field("PROVIDER_SUBJECT_NUM"))
 				.fetch();
 		
 	
