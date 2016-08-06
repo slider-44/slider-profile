@@ -1,0 +1,51 @@
+<div class="panel panel-primary spacer">
+	<div class="panel-body">
+	
+	  <form class="form-search form-horizontal" data-ng-controller="searchAccountController" data-ng-init='fn_load()' novalidate>
+	  	<div class="row spacer">
+	  		<div class="col-md-4" >
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">
+					<i class="fa fa-filter"></i></span>
+					<input type="text" class="form-control" placeholder="Filter"
+					       data-ng-init="userFilter = {}" data-ng-model="userFilter.$" placeholder="Filter">
+				</div>
+			</div>
+			
+			<div class="col-md-12 spacer">
+				<table data-si-table="tableParams" class="table table-bordered table-striped table-hover table-condensed">
+					<thead class="text-primary">
+						<tr>
+							<th style="width: 150px" data-sort-by="firstName">First Name</th>
+							<th style="width: 150px" data-sort-by="lastName">Last Name</th>
+							<th style="width: 100px" data-sort-by="userCd">User Name</th>
+							<th style="width: 110px" data-sort-by="email">Email</th>
+							<th style="width: 25px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-si-sortable data-ng-repeat="row in model.results | filter:userFilter">
+							<td style="font-size: 12px;">{{row.firstName}}</td>
+							<td style="font-size: 12px;">{{row.lastName}}</td>
+							<td style="font-size: 12px;">{{row.usercd}}</td>
+						    <td style="font-size: 12px;">{{row.email}}</td>
+						     <td style="display:none">
+								<div data-ng-repeat="role in row.roles">{{role.usercd}}</div> 
+							</td>				
+							<td class="eventsColumn"><span data-ng-click="move(row)" class="event" title="Copy contents"><i class="fa fa-copy"></i></span></td>
+						</tr>
+					</tbody>
+					<tfoot data-ng-if="model.results">
+					    <tr>
+					        <td colspan="6" style="font-size: 12px;">
+					            <si-table-pagination limit="10" />
+					        </td>
+					    </tr>
+					</tfoot>
+				</table>  
+			</div>
+	  	</div>
+	  </form>
+	
+	</div>
+</div>
