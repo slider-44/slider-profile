@@ -1,0 +1,41 @@
+<div id="centerPane">
+<div class="panel panel-primary">
+
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-search"></i> Search Image</h3>
+</div>
+
+<div class="panel-body">  
+<form class="form-search form-horizontal" data-ng-controller='salesImageController' novalidate>
+
+	   <div class="row spacer">
+	    	<div class="col-md-4">
+				<div class="input-group svX3">
+					<label for="customerCd" class="input-group-addon imagetype-width">Customer Code :</label>
+					<input type="text" placeholder="9999-99999-9" id="customerCd" class="form-control" data-ng-model="model.customerCd" maxlength="20"/>
+				</div>
+			</div>
+	   </div>
+	   
+	   <div class="row spacer">
+			<div class="col-md-4" >
+				<div class="btn-group">
+					<button name="search_app" data-ng-click='search()' class="btn btn-success">Search<i class="fa fa-spinner fa-spin fa-1x fa-fw margin-bottom" aria-hidden="true" data-ng-show="spinShow"></i></button>
+					<button name="resetForm" data-ng-click='reset()' class="btn btn-primary">Reset</button>
+				</div>
+			</div>
+		</div>
+		
+		<hr />
+		
+		<div class="row spacer">
+			<div class="col-md-6" >
+				<ng-gallery images="model.images" data-ng-if="displayImage">
+				</ng-gallery>
+			</div>
+		</div>
+</form>
+</div>
+
+</div>
+</div>
