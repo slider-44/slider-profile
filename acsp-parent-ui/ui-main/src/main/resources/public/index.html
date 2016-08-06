@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  
+  <link href="resources/thirdparty/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+  <link href="resources/thirdparty/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen"/>
+  <link href="resources/thirdparty/css/dark-admin.css" rel="stylesheet" media="screen"/>
+  <link href="resources/thirdparty/css/ngToast.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/thirdparty/css/ngToast-animations.min.css" rel="stylesheet" type="text/css" />  
+  <link href="resources/thirdparty/css/font-awesome.min.css" rel="stylesheet" media="screen"/>
+  <link href="resources/thirdparty/css/ngGallery.css" rel="stylesheet" type="text/css" />
+  
+	<link href="main/main.css" rel="stylesheet" type="text/css" />
+	
+	<title>ACSP</title>
+</head>
+
+<body>
+	<toast></toast>
+	
+	<div data-ng-include="'fragments/header.html'"></div>
+	
+	<div data-ng-view></div>
+	
+	<footer class="footer navbar-fixed-bottom" data-ng-include="'fragments/footer.html'"></footer>
+	
+</body>
+<script src="resources/thirdparty/js/js.cookie.js" type="text/javascript"></script>
+<script src="resources/thirdparty/js/require.js" data-main="acsp"></script>
+
+</html>

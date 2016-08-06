@@ -1,0 +1,97 @@
+html {
+  	margin-bottom: 40px;	
+}
+
+.eventsColumn span.event, th.sort {
+	cursor: pointer;
+}
+
+.acsp-toast {
+	max-width: 300px;
+	width: 500px;
+}
+
+.acsp-toast .alert-dismissible {
+	padding-right: 35px;
+}
+
+.acsp-toast .fa {
+	float: left;
+	margin-top: 5px;
+}
+
+.modal-content .panel {
+	margin-bottom: 0;
+}
+
+.modal-backdrop.in {
+	opacity: 0.9;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+.ng-invalid.ng-dirty {
+	border-color: red;
+}
+
+.spacer {
+	margin-top: 2px; /* define margin as you see fit */
+}
+
+.requiredSpan {
+	color: white;
+	position: absolute;
+	top: -20px;
+	right: 0px;
+	z-index: 222;
+	background-color: red;
+	padding: 2px 5px;
+	font-size: .8em;
+}
+
+.fa.tilt {
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+#leftPane, #rightPane, #centerPane {
+  padding: 0 2px;
+}
+
+#acspFooter {
+  position: absolute;
+  bottom: 0;
+  font-size: .75em;
+  text-align: right;
+  width: 100%;
+}
+
+#acspFooter p {
+	margin: 5px 15px;
+}
+
+.footer {
+	background-color: #222222;
+}
+
+.footer p.credit {
+    margin: 0;
+    text-align: center;
+    font-size: .9em;
+    padding: 5px;
+}
+
+.telefollow-info {
+	/*  min-height: 295px; */
+}
+
+.navbar-left {
+	font-size: 14px;
+}
+
+.svX3 textarea.form-control {
+	height: inherit;
+}

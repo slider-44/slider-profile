@@ -1,0 +1,12 @@
+<ul class="nav navbar-nav navbar-left navbar-user" id="nav">
+  <li class="dropdown messages-dropdown" data-ng-repeat="menu in menus">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown" title="{{menu.name}}">
+    <i class="fa {{menu.icon}} fa-fw" aria-hidden="true"></i> {{menu.name}}</a>
+               
+    <ul class="dropdown-menu">
+      <li data-ng-repeat="menuItem in menu.menuItems">
+        <a href="#/{{menu.project}}/{{menuItem.module}}"><i class="fa {{menuItem.icon}} fa-fw" aria-hidden="true"></i> {{menuItem.name}}</a>
+      </li>
+    </ul>
+  </li>                      
+</ul>
