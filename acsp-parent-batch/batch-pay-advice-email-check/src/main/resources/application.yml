@@ -1,0 +1,57 @@
+server:
+  port: 3360
+  
+spring:
+  application:
+    name: 'batch-pay-advice-email-check'
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    poolName: SpringBootHikariCP
+    maximumPoolSize: 5
+    minimumIdle: 3
+    maxLifetime: 2000000
+    connectionTimeout: 30000
+    idleTimeout: 30000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 250
+    
+sms:
+  template:
+    message:
+      subject: ACS Advisory |
+      email-notification: Salamat po sa pagtangkilik sa Aeon Credit Service. Ang Billing Advice ay naipadala na sa inyong email address. Salamat po.
+  schedule:
+    cron: 0 0 6 * * ?    
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+    healthCheckUrlPath: http://${eureka.instance.hostname}:${server.port}/health
+  client:
+    serviceUrl:
+      defaultZone: ${eureka.client.serviceUrl.defaultZone}
+    shouldUseDns: false
+    healthcheck:
+      enabled: true
+      
+hystrix:
+  command:
+    default:
+      execution.isolation:
+        thread:
+          timeoutInMilliseconds: 60000
+          
+
+logging:
+  level:
+    root: INFO
+    com.netflix: INFO
+    org.apache.coyote: INFO
+    org.apache.http: INFO
+    org.springframework.security.web.access: INFO
+    org.springframework.security.access.vote: INFO
+    org.jooq: DEBUG
+    javax.activation: INFO
