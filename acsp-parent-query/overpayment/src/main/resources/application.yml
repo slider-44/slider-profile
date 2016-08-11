@@ -1,0 +1,49 @@
+server:
+  port: 8033
+
+spring:
+  application:
+    name: 'query-overpayment'
+  redis:
+    host: 192.168.50.4
+  thymeleaf:
+    cache: false
+  jackson:
+    serialization-inclusion: NON_EMPTY
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    poolName: SpringBootHikariCP
+    maximumPoolSize: 5
+    minimumIdle: 3
+    maxLifetime: 2000000
+    connectionTimeout: 30000
+    idleTimeout: 30000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 250
+    
+security:
+  sessions: never   
+  
+eureka:
+  instance:
+    prefer-ip-address: true
+    healthCheckUrlPath: http://${eureka.instance.hostname}:${server.port}/health
+  client:
+    serviceUrl:
+      defaultZone: ${eureka.client.serviceUrl.defaultZone}
+    shouldUseDns: false
+    healthcheck:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.netflix: INFO
+    org.apache.coyote: INFO
+    org.apache.http: INFO
+    org.springframework.security.web.access: INFO
+    org.springframework.security.access.vote: INFO
+    org.jooq: DEBUG    
