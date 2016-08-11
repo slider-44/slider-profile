@@ -1,0 +1,46 @@
+server:
+  port: 7085
+
+spring:
+  application:
+    name: 'query-telefollow-alloc-waitingforpickup-new'
+  redis:
+    host: ${redis.host}
+  jackson:
+    serialization-inclusion: non-empty
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    poolName: SpringBootHikariCP
+    maximumPoolSize: 5
+    minimumIdle: 3
+    maxLifetime: 2000000
+    connectionTimeout: 3000000
+    idleTimeout: 3000000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 250 
+    
+security:
+  sessions: never   
+  
+eureka:
+  instance:
+    prefer-ip-address: true
+    healthCheckUrlPath: /health
+    instance-enabled-onit: true
+  client:
+    serviceUrl:
+      defaultZone: ${eureka.client.serviceUrl.defaultZone}
+    use-dns-for-fetching-service-urls: false
+
+logging:
+  level:
+    root: INFO
+    com.netflix: INFO
+    org.apache.coyote: INFO
+    org.apache.http: INFO
+    org.springframework.security.web.access: INFO
+    org.springframework.security.access.vote: INFO
+    org.jooq: DEBUG
