@@ -1,0 +1,32 @@
+server:
+  port: 8021
+   
+spring:
+  application:
+    name: 'batch-telefollow'
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    pool-name: SpringBootHikariCP
+    maximum-pool-size: 5
+    minimum-idle: 3
+    max-lifetime: 2000000
+    connection-timeout: 30000
+    idle-timeout: 30000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 250
+  jackson:
+    serialization-inclusion: non_empty
+logging:
+  level:
+    root: INFO
+    org.jooq: DEBUG
+    org.apache.coyote: DEBUG
+    org.springframework.security.web.access: DEBUG
+    org.springframework.security.access.vote: DEBUG
+    org.springframework.core.convert: DEBUG
+    
+tele:
+  sched: 0 0/60 * * * ?
