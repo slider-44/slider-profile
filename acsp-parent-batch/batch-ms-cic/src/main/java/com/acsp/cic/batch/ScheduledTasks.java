@@ -20,7 +20,7 @@ public class ScheduledTasks {
 	
 	
 	//@Scheduled(cron = "${cic.sched}")
-	@Scheduled(cron = "0 27 20 * * *")
+	@Scheduled(cron = "0 43 11 * * *")
 	public void runBatch() throws Exception {
 		
 		

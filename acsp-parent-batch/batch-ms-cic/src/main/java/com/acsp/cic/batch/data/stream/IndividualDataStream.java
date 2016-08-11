@@ -53,6 +53,8 @@ public class IndividualDataStream implements DataStream {
 		
 		Field<?> FULLADDRESS1= DSL.field("nowstreet || ',' || nowaddress || ',' || city  || ',' ||  nowzipcode");
 		
+		Field<?> FULLADDRESS2= DSL.field("nowstreet || ',' || nowaddress || ',' || city  || ',' ||  nowzipcode");
+		
 		Field<?> EMPLOYMENTTRADENAME= DSL.field("CASE WHEN CORPNAME='NA' THEN '' ELSE CORPNAME END");
 		
 		Field<?> CORPTEL= DSL.field("CASE WHEN CORPTEL+1=1 THEN '' ELSE CORPTEL END");
@@ -76,7 +78,8 @@ public class IndividualDataStream implements DataStream {
 				.select(BITHDATE.as("BIRTHDAY"))
 				.select(BIRTHPLACE.as("BIRTHPLACE"))
 				.select(NATIONALITY.as("NATIONALITY"))
-				.select(FULLADDRESS1.as("ADDRESS"))
+				.select(FULLADDRESS1.as("ADDRESS1"))
+				.select(FULLADDRESS2.as("ADDRESS2"))
 				.select(IDENTIFICATION.IDCARDTYPE.as("IDENTIFICATION_1"))
 				.select(IDENTIFICATION.IDCARDNO.as("IDENTIFICATION_NUM_1"))
 				.select(IDENTIFICATION.IDCARDTYPE2.as("IDENTIFICATION_2"))
@@ -250,7 +253,7 @@ public class IndividualDataStream implements DataStream {
                 .select(fatherSuffix.as("FATHER_SUFFIX"))
                 
                 .select(addressType1.as("ADDRESS_TYPE_1"))
-                .select(NESTED.field("ADDRESS"))
+                .select(NESTED.field("ADDRESS1"))
                 .select(streetNo1.as("STREET_NO_1"))
                 .select(postalCode1.as("POSTAL_CODE_1"))
                 .select(subdivision1.as("SUBDIVISION_1"))
@@ -262,7 +265,8 @@ public class IndividualDataStream implements DataStream {
                 .select(occupiedSince1.as("OCCUPIED_SINCE_1"))
                 
                 .select(addressType2.as("ADDRESS_TYPE_2"))
-                .select(fullAddress2.as("FULL_ADDRESS_2"))
+                .select(NESTED.field("ADDRESS2"))
+                //.select(fullAddress2.as("FULL_ADDRESS_2"))
                 .select(streetNo2.as("STREET_NO_2"))
                 .select(postalCode2.as("POSTAL_CODE_2"))
                 .select(subdivision2.as("SUBDIVISION_2"))

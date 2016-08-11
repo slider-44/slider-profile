@@ -77,7 +77,7 @@ public class IndividualConstantField {
 
 	private static final String occupiedSince1 = "";
 
-	private static final String addressType2 = "";
+	private static final String addressType2 = "AI";
 
 	private static final String fullAddress2 = "";
 

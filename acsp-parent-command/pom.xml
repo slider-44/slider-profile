@@ -22,6 +22,7 @@
 	<module>command-settlement</module>
 
 	<module>command-overpayment</module>
+	<module>command-merchant-bank-save</module>
 	</modules>
 
 	<dependencies>

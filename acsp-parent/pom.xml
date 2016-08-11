@@ -215,4 +215,7 @@
 	</distributionManagement>
 
 	
+	<modules>
+		<module>acsp-parent-command</module>
+	</modules>
 </project>
